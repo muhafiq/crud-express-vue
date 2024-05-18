@@ -43,7 +43,12 @@ describe("Token API", () => {
   });
 
   it("should failed refresh access token because no refresh token", async () => {
-    let response = await supertest(app).get("/api/v1/auth/token").send({});
+    let response = await supertest(app).post("/api/v1/auth/login").send({
+      email: "test@email.com",
+      password: "password",
+    });
+
+    response = await supertest(app).get("/api/v1/auth/token").send({});
 
     logger.info(response.body);
 

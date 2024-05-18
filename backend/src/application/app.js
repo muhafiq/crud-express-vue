@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://qpwz2kcm-4173.asse.devtunnels.ms"],
     credentials: true,
   })
 );

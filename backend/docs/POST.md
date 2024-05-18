@@ -63,8 +63,35 @@
 - Endpoint: `/api/v1/post/search?q=keyword`
 - Headers:
   - Content-Type: application/json
-  - Cookie: refreshToken `required`
-  - Authorization: accessToken `required`
+- Request params: `required query params`
+- Request Body `not required`
+
+- Response Body
+
+````json
+{
+  "code": 200,
+  "message": "Search posts",
+  "data": [
+    {
+      "postId": "7c06b136-f49b-4e6a-bcd8-af48b108f6b3",
+      "title": "Test Post",
+      "content": "This is a test post",
+      "createdAt": "date",
+      "author": {
+        "userId": "a93e8bf0-5452-4730-a883-62b990e45573",
+        "username": "user name"
+      }
+    }
+  ]
+}
+
+## Get single post
+
+- Method: GET
+- Endpoint: `/api/v1/post/single/:postId`
+- Headers:
+  - Content-Type: application/json
 - Request params: `required query params`
 - Request Body `not required`
 
@@ -74,19 +101,18 @@
 {
   "code": 200,
   "message": "Search posts",
-  "data": [
-    {
+  "data": {
       "postId": "7c06b136-f49b-4e6a-bcd8-af48b108f6b3",
       "title": "Test Post",
       "content": "This is a test post",
+      "createdAt": "date",
       "author": {
         "userId": "a93e8bf0-5452-4730-a883-62b990e45573",
         "username": "user name"
       }
     }
-  ]
 }
-```
+````
 
 ## Create post
 
@@ -124,7 +150,7 @@
 
 ## Update/Edit post
 
-- Method: POST
+- Method: PUT
 - Endpoint: `/api/v1/post/edit/:postId`
 - Headers:
   - Content-Type: application/json
@@ -158,7 +184,7 @@
 
 ## Delete post
 
-- Method: POST
+- Method: DELETE
 - Endpoint: `/api/v1/post/delete/:postId`
 - Headers:
   - Content-Type: application/json

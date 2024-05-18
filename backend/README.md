@@ -1,1 +1,1 @@
-# Api for menu app based on QR Code
+# Api for basic crud

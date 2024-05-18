@@ -4,6 +4,7 @@ import {
   createPost,
   deletePost,
   getAllPosts,
+  getSinglePost,
   getUserPosts,
   searchPosts,
   updatePost,
@@ -11,11 +12,12 @@ import {
 
 const postRouter = express.Router();
 
+postRouter.get("/single/:postId", getSinglePost);
+postRouter.get("/search", searchPosts);
+
 postRouter.use(verifyToken);
 
 postRouter.get("/all", getAllPosts);
-
-postRouter.get("/search", searchPosts);
 
 postRouter.get("/:userId", getUserPosts);
 

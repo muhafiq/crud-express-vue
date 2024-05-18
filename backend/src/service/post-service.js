@@ -31,11 +31,11 @@ const getUserPosts = async (userId) => {
       postId: true,
       title: true,
       content: true,
+      createdAt: true,
     },
   });
 
-  if (result.length === 0)
-    throw new ResponseError(404, "No posts found for this user");
+  if (result.length === 0) throw new ResponseError(404, "No posts found for this user");
 
   return result;
 };
@@ -45,15 +45,32 @@ const searchPosts = async (query) => {
 
   return prismaClient.post.findMany({
     where: {
-      OR: [
-        { title: { contains: validateQuery } },
-        { content: { contains: validateQuery } },
-      ],
+      OR: [{ title: { contains: validateQuery } }, { content: { contains: validateQuery } }],
     },
     select: {
       postId: true,
       title: true,
       content: true,
+      author: {
+        select: {
+          userId: true,
+          username: true,
+        },
+      },
+    },
+  });
+};
+
+const getSinglePost = async (postId) => {
+  if (!postId) throw new ResponseError(400, "Post id must be exists.");
+
+  return prismaClient.post.findUnique({
+    where: { postId },
+    select: {
+      postId: true,
+      title: true,
+      content: true,
+      createdAt: true,
       author: {
         select: {
           userId: true,
@@ -108,6 +125,7 @@ export default {
   getAllPosts,
   getUserPosts,
   searchPosts,
+  getSinglePost,
   createPost,
   updatePost,
   deletePost,

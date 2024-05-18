@@ -1,6 +1,8 @@
 import expressAsyncHandler from "../error/express-async-handler.js";
 import ResponseError from "../error/response-error.js";
 import authService from "../service/auth-service.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const register = expressAsyncHandler(async (req, res, next) => {
   const result = await authService.register(req.body);
@@ -21,7 +23,7 @@ export const login = expressAsyncHandler(async (req, res, next) => {
 
   res.cookie("refreshToken", result.refreshToken, {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 1000 * 60 * 60 * 24 * 30,
     secure: process.env.NODE_ENV === "production",
   });
   res.status(200).json({

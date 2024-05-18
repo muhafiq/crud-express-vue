@@ -38,6 +38,18 @@ export const searchPosts = expressAsyncHandler(async (req, res, next) => {
   });
 });
 
+export const getSinglePost = expressAsyncHandler(async (req, res, next) => {
+  const result = await postService.getSinglePost(req.params.postId);
+
+  if (result instanceof ResponseError || !result) throw result;
+
+  res.status(200).json({
+    code: 200,
+    message: "Single post",
+    data: result,
+  });
+});
+
 export const createPost = expressAsyncHandler(async (req, res, next) => {
   const result = await postService.createPost({
     ...req.body,
